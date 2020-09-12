@@ -8,12 +8,14 @@ import { RegistrationComponent } from './pages/registration/registration.compone
 import {FormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import { AddProductComponent } from './pages/add-product/add-product.component';
+import { AddCategoryComponent } from './pages/add-category/add-category.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RegistrationComponent,
-    AddProductComponent
+    AddProductComponent,
+    AddCategoryComponent
   ],
   imports: [
     BrowserModule,
