@@ -14,8 +14,15 @@ export class ProductService {
   }
 
 
+  findProduct(id: string): Observable<Product> {
+    console.log("you are here");
+    const findProductUrl = `${url}/product/find-by/${id}`;
 
-  addProduct(product: Product):Observable<Product> {
+    return this.http.get<Product>(findProductUrl);
+
+  }
+
+  addProduct(product: Product): Observable<Product> {
 
     const addProductUrl = `${url}/product/add`;
 

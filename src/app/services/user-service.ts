@@ -8,11 +8,10 @@ import {Injectable} from "@angular/core";
 export class UserService {
 
 
-
   constructor(private http: HttpClient) {
   }
 
-  signUp(user: User):Observable<User> {
+  signUp(user: User): Observable<User> {
     const signUpUrl = `${url}/user/register`;
 
     return this.http.post<User>(signUpUrl, user);

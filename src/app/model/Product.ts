@@ -8,4 +8,5 @@ export class Product {
 
   category: string;
 
+
 }
