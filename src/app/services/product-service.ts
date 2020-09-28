@@ -6,11 +6,11 @@ import {Injectable} from "@angular/core";
 
 
 @Injectable({providedIn: "root"})
-
 export class ProductService {
 
 
   constructor(private http: HttpClient) {
+    //const id: Observable<string> = route.params.pipe(map(p => p.id));
   }
 
 
@@ -19,8 +19,16 @@ export class ProductService {
     const findProductUrl = `${url}/product/find-by/${id}`;
 
     return this.http.get<Product>(findProductUrl);
+  }
+
+  updateProduct(product: Product): Observable<Product> {
+
+    const updateProductUrl = `${url}/product/update`;
+
+    return this.http.post<Product>(updateProductUrl, product);
 
   }
+
 
   addProduct(product: Product): Observable<Product> {
 
