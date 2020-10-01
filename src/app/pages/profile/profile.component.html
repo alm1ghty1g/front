@@ -1,9 +1,10 @@
 <div class="container w-50 mt-5">
-  <form class="container w-75 register-form" #form="ngForm" (ngSubmit)="onSubmit()">
+  <form class="container w-75 register-form" (ngSubmit)="onSubmit()" [formGroup]='loginForm' novalidate class="form">
     <div class="card text-center">
       <div class="card-header bg-dark text-light">
         <p class="header-font display-4">Personal data</p>
       </div>
+
       <div class="card-body">
 
         <div class="form-row">
@@ -12,12 +13,8 @@
             <h4 class="text-right p-2">First Name</h4>
           </div>
           <div class="form-group col-md-8">
-            <input id="firstName" type="text" name="firstName" class="form-control" [(ngModel)]="user.firstName" required #firstName="ngModel">
-            <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)">
-              <div *ngIf="firstName.errors.required">
-                Name is required
-              </div>
-            </div>
+            <input id="firstName" type="text" formControlName="firstName" class="form-control">
+
           </div>
 
         </div>
@@ -27,13 +24,13 @@
             <h4 class="text-right p-2">Last Name</h4>
           </div>
           <div class="form-group col-md-8">
-            <input id="lastName" type="text" name="lastName" class="form-control" [(ngModel)]="user.lastName" required #lastName="ngModel">
-            <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)">
-              <div *ngIf="lastName.errors.required">
-                Last name is required
-              </div>
+            <input id="lastName" type="text" formControlName="lastName" class="form-control">
+<!--            <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)">-->
+<!--              <div *ngIf="lastName.errors.required">-->
+<!--                Last name is required-->
+<!--              </div>-->
 
-            </div>
+<!--            </div>-->
           </div>
 
         </div>
@@ -43,15 +40,15 @@
             <h4 class="text-right p-2">Email</h4>
           </div>
           <div class="form-group col-md-8">
-            <input id="email" type="email" name="email" class="form-control" [(ngModel)]="user.email" email required #email="ngModel">
-              <div  *ngIf="email.invalid && (email.dirty ||email.touched)" >
-              <div *ngIf="email.errors.required" >
-                Email is required.
-              </div>
-              <div *ngIf="email.errors.email">
-                Invalid Email.
-              </div>
-            </div>
+            <input id="email" type="email" formControlName="email" class="form-control">
+<!--              <div  *ngIf="email.invalid && (email.dirty ||email.touched)" >-->
+<!--              <div *ngIf="email.errors.required" >-->
+<!--                Email is required.-->
+<!--              </div>-->
+<!--              <div *ngIf="email.errors.email">-->
+<!--                Invalid Email.-->
+<!--              </div>-->
+<!--            </div>-->
           </div>
 
         </div>
@@ -61,10 +58,10 @@
             <h4 class="text-right p-2">Phone</h4>
           </div>
           <div class="form-group col-md-8">
-            <input id="phoneNumber" type="text" name="phoneNumber" class="form-control" [(ngModel)]="user.phoneNumber" required #phoneNumber="ngModel">
-            <div *ngIf="phoneNumber.invalid && (phoneNumber.dirty || phoneNumber.touched)">
-            <div *ngIf="phoneNumber.errors.required">
-              Phone is required
+            <input id="phoneNumber" type="text" formControlName="phoneNumber" class="form-control" pattern="[+]\d{2}[-]\d{3}[-]\d{1}[-]\d{3}[-]\d{3}">
+            <div *ngIf="!loginForm.get('phoneNumber').valid && loginForm.get('phoneNumber').touched">
+            <div>
+              +xx-xxx-x-xxx-xxx
             </div>
             </div>
           </div>
@@ -76,7 +73,12 @@
             <h4 class="text-right p-2">Current password</h4>
           </div>
           <div class="form-group col-md-8">
-            <input id="currentPassword" type="password" name="currentPassword" class="form-control" [(ngModel)]="user.password">
+            <input id="password" type="password" formControlName="password" class="form-control">
+            <div *ngIf="!loginForm.get('password').valid && loginForm.get('password').touched && loginForm.get('password').dirty">
+              <div>
+                Password is incorrect
+              </div>
+            </div>
           </div>
 
         </div>
@@ -86,16 +88,16 @@
             <h4 class="text-right p-2">New Password</h4>
           </div>
           <div class="form-group col-md-8">
-            <input id="newPassword" type="password" name="newPassword" pattern="[A-Za-z]{3}" class="form-control" [(ngModel)]="user.newPassword" required #newPassword="ngModel">
-            <div *ngIf="newPassword.invalid && (newPassword.dirty || newPassword.touched)">
-              <div *ngIf="newPassword.errors.required">
-                Password is required
-              </div>
-              <div *ngIf="newPassword.errors.pattern">
-                Password is not in a compliance
-              </div>
+            <input id="newPassword" type="password" formControlName="newPassword" pattern="[A-Za-z]{5}" class="form-control">
+<!--            <div *ngIf="newPassword.invalid && (newPassword.dirty || newPassword.touched)">-->
+<!--              <div *ngIf="newPassword.errors.required">-->
+<!--                Password is required-->
+<!--              </div>-->
+<!--              <div *ngIf="newPassword.errors.pattern">-->
+<!--                Password is not in a compliance-->
+<!--              </div>-->
 
-            </div>
+<!--            </div>-->
           </div>
 
         </div>
@@ -105,7 +107,7 @@
             <h4 class="text-right p-2">Confirm Password</h4>
           </div>
           <div class="form-group col-md-8">
-            <input id="newPasswordConfirmation" type="password" name="newPasswordConfirmation" class="form-control" [(ngModel)]="user.newPasswordConfirmation" required #newPasswordConfirmation="ngModel">
+            <input id="newPasswordConfirmation" type="password" formControlName="newPasswordConfirmation" class="form-control">
 <!--            <div *ngIf="newPasswordConfirmation != newPassword">-->
 <!--              <div *ngIf="newPasswordConfirmation.errors.required">-->
 <!--                Password doesn't match-->

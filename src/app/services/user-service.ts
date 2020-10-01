@@ -73,9 +73,9 @@ export class UserService {
 
     const updateUserUrl = `${url}/user/update`;
 
-    user.password = user.newPasswordConfirmation;
+    // user.password = user.newPasswordConfirmation;
 
-    console.log(user.newPassword);
+    console.log(user);
     console.log(user.newPasswordConfirmation);
 
 
