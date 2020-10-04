@@ -72,16 +72,13 @@ export class UserService {
   updateUser(user: User): Observable<User> {
 
     const updateUserUrl = `${url}/user/update`;
-
     // user.password = user.newPasswordConfirmation;
-
     console.log(user);
     console.log(user.newPasswordConfirmation);
 
-
     return this.http.post<User>(updateUserUrl, user);
-
   }
+
 
 
 }

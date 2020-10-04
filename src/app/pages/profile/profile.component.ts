@@ -20,6 +20,8 @@ export class ProfileComponent implements OnInit {
 
   user = new User();
 
+  isCorrectPassword: boolean;
+
 
   ngOnInit() {
 
@@ -36,18 +38,6 @@ export class ProfileComponent implements OnInit {
       newPasswordConfirmation: new FormControl(null, Validators.required),
 
     });
-
-    // ^(([+]\d{2}[ ][1-9]\d{0,2}[ ])| +46 8 123 456 78
-
-    // ([0]\d{1,3}[-]))((\d{2}([ ]\d{2}){2})|  08-123 456 78
-
-    // (\d{3}([ ]\d{3})*([ ]\d{2})+))$ | 0123-456 78
-
-    // +38 068 2 864 864 | ^(([+]\d{2}[-]))(\d{3}[-]\d{3}[-]\d{3})
-
-    // ||  correct
-
-    //+46 08-123 456 78 | 08 123 456 78 | 0123 456 78 incorrect
 
     const account = this.userService.currentUserValue.account;
 
@@ -68,7 +58,7 @@ export class ProfileComponent implements OnInit {
       this.loginForm.controls["newPassword"].setValue(u[0].newPassword);
       this.loginForm.controls["newPasswordConfirmation"].setValue(u[0].newPasswordConfirmation);
 
-
+      this.isCorrectPassword = true;
     }, error => {
       console.log(error);
     });
@@ -85,12 +75,15 @@ export class ProfileComponent implements OnInit {
     this.user.newPassword = this.loginForm.controls["newPassword"].value;
     this.user.newPasswordConfirmation = this.loginForm.controls["newPasswordConfirmation"].value;
 
-
     console.log(this.user.newPasswordConfirmation);
     console.log(this.user.newPassword);
 
+    this.userService.updateUser(this.user).subscribe(user => {this.user = user; this.isCorrectPassword = true}, error => {
+      this.isCorrectPassword = false;
+      console.log(error)
+    });
 
-    this.userService.updateUser(this.user).subscribe(user => this.user = user);
+    console.log(this.user);
 
   }
 
@@ -118,5 +111,15 @@ function passwordMatchValidator(control: AbstractControl): { [key: string]: bool
   return null;
 }
 
+// ^(([+]\d{2}[ ][1-9]\d{0,2}[ ])| +46 8 123 456 78
 
+// ([0]\d{1,3}[-]))((\d{2}([ ]\d{2}){2})|  08-123 456 78
+
+// (\d{3}([ ]\d{3})*([ ]\d{2})+))$ | 0123-456 78
+
+// +38 068 2 864 864 | ^(([+]\d{2}[-]))(\d{3}[-]\d{3}[-]\d{3})
+
+// ||  correct
+
+//+46 08-123 456 78 | 08 123 456 78 | 0123 456 78 incorrect
 
