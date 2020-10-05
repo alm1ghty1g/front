@@ -15,6 +15,8 @@ import {CookieService} from "ngx-cookie-service";
 import {JwtInterceptor} from "./utils/JwtInterceptor";
 import { ProfileComponent } from './pages/profile/profile.component';
 import { HeaderMenuComponent } from './pages/header-menu/header-menu.component';
+import {ConfirmEqualValidatorDirective} from "./validators/confirm-equal-validator.directive";
+
 
 @NgModule({
   declarations: [
@@ -27,6 +29,7 @@ import { HeaderMenuComponent } from './pages/header-menu/header-menu.component';
     LoginComponent,
     ProfileComponent,
     HeaderMenuComponent,
+    ConfirmEqualValidatorDirective
   ],
   imports: [
     BrowserModule,
@@ -34,7 +37,7 @@ import { HeaderMenuComponent } from './pages/header-menu/header-menu.component';
     BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [CookieService,
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},

@@ -6,9 +6,11 @@ export class User {
 
   password: string;
 
-  newPassword: string;
+  passwordConfirmation: string; //register
 
-  newPasswordConfirmation: string;
+  newPassword: string; //update
+
+  newPasswordConfirmation: string; //update
 
   firstName: string;
 

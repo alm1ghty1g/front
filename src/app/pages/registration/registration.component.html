@@ -6,23 +6,60 @@
         <p class="header-font display-4">User Registration</p>
       </div>
       <div class="card-body">
+
         <div class="form-group">
           <label>Email</label>
           <input type="email" name="email" class="form-control"
-                 [(ngModel)]="user.email"  #email = "ngModel">
+                 [(ngModel)]="user.email" #email="ngModel">
         </div>
-        <div class="form-group">
-          <label>Password</label>
-          <input type="text" name="password" class="form-control"
-                 [(ngModel)]="user.password">
+
+        <div ngModelGroup="passwordGroup"
+             [class.has-error]="passwordConfirmation.touched && passwordConfirmation.invalid && passwordConfirmation.errors?.required">
+          <div class="form-group" [class.has-error]="password.touched && password.invalid ">
+            <label class="control-label">Password</label>
+            <input name="password" required type="text" class="form-control"
+                   (input)="passwordConfirmation.control.updateValueAndValidity()"
+                   [(ngModel)]="user.password" #password="ngModel">
+            <span class="help-block" *ngIf="password.touched && password.errors?.required">
+            Password is required
+          </span>
+          </div>
+
+
+          <div class="form-group"
+               [class.has-error]="passwordConfirmation.touched && passwordConfirmation.invalid">
+            <label class="control-label">Confirm Password</label>
+            <input name="passwordConfirmation" appConfirmEqualValidator="password" required type="text"
+                   class="form-control"
+                   [(ngModel)]="user.passwordConfirmation" #passwordConfirmation="ngModel">
+            <span class="help-block"
+                  *ngIf="passwordConfirmation.touched && passwordConfirmation.errors?.required">
+            Confirm Password is required
+          </span>
+            <span class="help-block"
+                  *ngIf="passwordConfirmation.touched && passwordConfirmation.errors?.notEqual && !passwordConfirmation.errors?.required">
+            Password and Confirm Password does not match
+          </span>
+
+
+          </div>
         </div>
+
+
         <div class="form-row">
 
-          <div class="form-group col-md-6">
-            <label>First name</label>
-            <input type="text" name="firstName" class="form-control"
-                   [(ngModel)]="user.firstName">
+
+          <div class="form-group has-error col-md-6" [class.has-error]="firstNameControl.invalid && firstNameControl.touched"
+          [class.has-success]="firstNameControl.valid">
+            <label for="firstName" class="control-label">First name</label>
+            <input required id="firstName" name="firstName" [(ngModel)]="user.firstName"
+                   type="text" class="form-control" #firstNameControl="ngModel">
+            <span class="help-block" *ngIf="firstNameControl.invalid && firstNameControl.touched">
+              First Name is required
+            </span>
           </div>
+
+
           <div class="form-group col-md-6">
             <label>Last name</label>
             <input type="text" name="lastName" class="form-control"
